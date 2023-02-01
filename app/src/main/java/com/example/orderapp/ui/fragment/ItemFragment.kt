@@ -1,5 +1,6 @@
 package com.example.orderapp.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.orderapp.R
 import com.example.orderapp.databinding.FragmentItemBinding
 import com.example.orderapp.model.Drink
 import com.example.orderapp.model.Pasta
 import com.example.orderapp.model.Pizza
+import com.example.orderapp.ui.DetailActivity
 import com.example.orderapp.util.ItemAdapter
 
 
@@ -45,10 +48,14 @@ class ItemFragment : Fragment() {
                val item = adapter.items[position]
                 Toast.makeText(activity, "Es wurde  ${item.name} ausgewählt", Toast.LENGTH_SHORT).show()
 
-                val fragment = DetailFragment()
-                fragment.arguments = Bundle().apply {
-//                    putParcelable("item", item)
+
+                val args = Bundle().apply {
+                    putParcelable("item", item)
                 }
+                // Der Intent dient zum Aufruf einer Anderen Activity und kann hierber Daten mitnehmen
+                val intent = Intent(requireActivity(),DetailActivity::class.java)
+                intent.putExtra("item",args)
+                startActivity(intent)
             }
 
         })

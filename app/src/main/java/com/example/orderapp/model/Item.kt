@@ -1,7 +1,9 @@
 package com.example.orderapp.model
 
-interface Item {
-    val name: String
+import android.os.Parcelable
+
+interface Item :Parcelable{
+    val name: String?
     val imageResource:Int
     val price:Double
 
