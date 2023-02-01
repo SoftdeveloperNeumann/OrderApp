@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.orderapp.databinding.PizzaLayoutBinding
-import com.example.orderapp.model.Pizza
+import com.example.orderapp.databinding.ItemLayoutBinding
 
-class PizzaAdapter(val pizzen: Array<Pizza>) : RecyclerView.Adapter<PizzaAdapter.ViewHolder>(){
-    class ViewHolder(val binding: PizzaLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+import com.example.orderapp.model.Item
+
+
+class ItemAdapter(val items: Array<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
+    class ViewHolder(val binding: ItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
 
     }
 
@@ -23,21 +25,21 @@ class PizzaAdapter(val pizzen: Array<Pizza>) : RecyclerView.Adapter<PizzaAdapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val cardView = PizzaLayoutBinding.inflate(LayoutInflater.from(parent.context))
+        val cardView = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context))
         return ViewHolder(cardView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cardView = holder.binding
-        cardView.tvPizzaName.text = pizzen[position].name
-        cardView.tvPizzaPrice.text = pizzen[position].price.toString()
+        cardView.tvPizzaName.text = items[position].name
+        cardView.tvPizzaPrice.text = items[position].price.toString()
         val imageView = cardView.imgPizza
-        val drawable = ContextCompat.getDrawable(imageView.context,pizzen[position].imageResource)
+        val drawable = ContextCompat.getDrawable(imageView.context,items[position].imageResource)
         imageView.setImageDrawable(drawable)
         cardView.root.setOnClickListener {
             listener?.onItemClick(position)
         }
     }
 
-    override fun getItemCount() = pizzen.size
+    override fun getItemCount() = items.size
 }
