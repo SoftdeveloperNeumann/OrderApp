@@ -45,4 +45,11 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
     }
+
+    override fun onBackPressed() {
+        if(binding.pager.currentItem != 0){
+            binding.pager.currentItem = binding.pager.currentItem-1
+        }else
+        super.onBackPressed()
+    }
 }
