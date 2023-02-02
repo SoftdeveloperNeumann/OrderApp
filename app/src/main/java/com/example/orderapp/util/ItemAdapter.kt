@@ -32,7 +32,7 @@ class ItemAdapter(val items: Array<Item>) : RecyclerView.Adapter<ItemAdapter.Vie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cardView = holder.binding
         cardView.tvPizzaName.text = items[position].name
-        cardView.tvPizzaPrice.text = items[position].price.toString()
+        cardView.tvPizzaPrice.text = "%.2f %s".format(items[position].price , "€")
         val imageView = cardView.imgPizza
         val drawable = ContextCompat.getDrawable(imageView.context,items[position].imageResource)
         imageView.setImageDrawable(drawable)

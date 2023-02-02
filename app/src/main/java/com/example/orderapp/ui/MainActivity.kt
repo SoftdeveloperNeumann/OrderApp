@@ -2,18 +2,24 @@ package com.example.orderapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.orderapp.R
 import com.example.orderapp.databinding.ActivityMainBinding
 import com.example.orderapp.ui.fragment.MainFragment
 import com.example.orderapp.ui.fragment.ItemFragment
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var tabArray: Array<String>
+
+   companion object{private var currentFragment = 0}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun createFragment(position: Int): Fragment {
+                currentFragment = position
                if(position == 0)
                    return MainFragment()
                 else{
@@ -37,19 +44,17 @@ class MainActivity : AppCompatActivity() {
                    }
                    return  fragment
                }
-
             }
         }
+
         TabLayoutMediator(binding.tabs,binding.pager){tab, position ->
             tab.text = tabArray[position]
         }.attach()
 
+        if(currentFragment != 0)
+            binding.pager.setCurrentItem(currentFragment-1)
+
     }
 
-    override fun onBackPressed() {
-        if(binding.pager.currentItem != 0){
-            binding.pager.currentItem = binding.pager.currentItem-1
-        }else
-        super.onBackPressed()
-    }
+
 }
